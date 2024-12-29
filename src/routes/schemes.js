@@ -2,45 +2,15 @@ import express from 'express';
 import { auth } from '../middleware/auth.js';
 import Scheme from '../models/Scheme.js';
 import User from '../models/User.js';
+import { getSchemeById, getSchemesQuery } from '../controllers/user/schemeController.js';
 
 const router = express.Router();
 
 // Get all schemes with optional filtering
-router.get('/', auth, async (req, res) => {
-  try {
-    const { category, search } = req.query;
-    let query = {};
-
-    if (category) {
-      query.category = category;
-    }
-
-    if (search) {
-      query.$or = [
-        { title: { $regex: search, $options: 'i' } },
-        { description: { $regex: search, $options: 'i' } }
-      ];
-    }
-
-    const schemes = await Scheme.find(query);
-    res.json(schemes);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching schemes' });
-  }
-});
+router.get('/', auth, getSchemesQuery);
 
 // Get a specific scheme
-router.get('/:id', auth, async (req, res) => {
-  try {
-    const scheme = await Scheme.findById(req.params.id);
-    if (!scheme) {
-      return res.status(404).json({ message: 'Scheme not found' });
-    }
-    res.json(scheme);
-  } catch (error) {
-    res.status(500).json({ message: 'Error fetching scheme' });
-  }
-});
+router.get('/:id', auth, getSchemeById);
 
 // Check eligibility for a scheme
 router.post('/:id/check-eligibility', auth, async (req, res) => {
