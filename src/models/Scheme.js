@@ -9,10 +9,10 @@ const schemeSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  eligibilityCriteria: [{
+  eligibilityCriteria: {
     type: String,
     required: true
-  }],
+  },
   requiredDocuments: [{
     type: String,
     required: true
@@ -24,7 +24,7 @@ const schemeSchema = new mongoose.Schema({
   applicationDeadline: Date,
   category: {
     type: String,
-    enum: ['education', 'health', 'housing', 'employment', 'other'],
+    enum: ['education', 'health', 'housing', 'employment', 'company'],
     required: true
   }
 }, { timestamps: true });
