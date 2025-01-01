@@ -1,9 +1,10 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import mongoose from 'mongoose';
 import helmet from "helmet";
 // import cookieParser from "cookie-parser";
+import { dbConnect } from './db/dbConnect.js';
+import { initializeAdmin } from './models/Admin.js';
 import compression from "compression";
 import rateLimit from "express-rate-limit";
 import mongoSanitize from "express-mongo-sanitize";
@@ -23,6 +24,7 @@ dotenv.config();
 
 const app = express();
 
+dbConnect();
 app.use(cors());
 app.use(express.json());
 
@@ -55,6 +57,10 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ message: 'Something went wrong!' });
 });
+
+
+// Initialize admin
+initializeAdmin();
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
