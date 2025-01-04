@@ -2,6 +2,7 @@ import express from 'express';
 import { adminAuth } from '../../middleware/adminAuth.js';
 import {
   getAllUsers,
+  getAllUsersCount,
   getUserById,
   updateUserStatus,
   getUserStats
@@ -9,9 +10,12 @@ import {
 
 const router = express.Router();
 
-router.get('/', adminAuth, getAllUsers);
-router.get('/:id', adminAuth, getUserById);
-router.patch('/:id/status', adminAuth, updateUserStatus);
-router.get('/stats/overview', adminAuth, getUserStats);
+// Admin Protected
+router.use(adminAuth)
+router.get('/', getAllUsers);
+router.get('/count', getAllUsersCount);
+router.get('/:id', getUserById);
+router.patch('/:id/status', updateUserStatus);
+router.get('/stats/overview', getUserStats);
 
 export default router;

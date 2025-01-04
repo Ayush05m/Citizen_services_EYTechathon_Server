@@ -19,6 +19,7 @@ import userRoutes from './routes/users.js';
 import adminAuthRoutes from './routes/admin/auth.js';
 import adminSchemeRoutes from './routes/admin/schemes.js';
 import adminUserRoutes from './routes/admin/users.js';
+import adminDocumentRoutes from './routes/admin/documents.js'
 
 dotenv.config();
 
@@ -50,6 +51,7 @@ app.use('/api/users', userRoutes);
 // Admin API routes
 app.use('/api/admin/auth', adminAuthRoutes);
 app.use('/api/admin/schemes', adminSchemeRoutes);
+app.use('/api/admin/documents', adminDocumentRoutes);
 app.use('/api/admin/users', adminUserRoutes);
 
 // Error handling middleware

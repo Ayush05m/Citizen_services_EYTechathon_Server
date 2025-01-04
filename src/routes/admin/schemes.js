@@ -5,12 +5,14 @@ import {
   createScheme,
   updateScheme,
   deleteScheme,
-  getSchemeStats
+  getSchemeStats,
+  getAllSchemesCount
 } from '../../controllers/admin/schemeController.js';
 
 const router = express.Router();
 
 router.get('/', adminAuth, getAllSchemes);
+router.get('/count', adminAuth, getAllSchemesCount);
 router.post('/', adminAuth, createScheme);
 router.put('/:id', adminAuth, updateScheme);
 router.delete('/:id', adminAuth, deleteScheme);

@@ -11,12 +11,27 @@ export const getAllSchemes = async (req, res) => {
   }
 };
 
+export const getAllSchemesCount = async (req, res) => {
+  try {
+    const schemeCount = await Scheme.countDocuments();
+    console.log(schemeCount);
+
+    res.json({ message: "Success", data: { count: schemeCount } });
+  }
+  catch {
+    res.status(500).json({ message: 'Error fetching users count' });
+  }
+}
+
 export const createScheme = async (req, res) => {
   try {
-    const scheme = new Scheme(req.body);
+    // console.log(req.body);
+    const scheme = new Scheme({ ...req.body });
     await scheme.save();
+    console.log(scheme);
     res.status(201).json(scheme);
   } catch (error) {
+    // console.log(error);
     res.status(500).json({ message: 'Error creating scheme' });
   }
 };
@@ -33,6 +48,7 @@ export const updateScheme = async (req, res) => {
     }
     res.json(scheme);
   } catch (error) {
+    console.log(error);
     res.status(500).json({ message: 'Error updating scheme' });
   }
 };

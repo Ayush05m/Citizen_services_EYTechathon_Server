@@ -28,12 +28,22 @@ export const getAllUsers = async (req, res) => {
   }
 };
 
+export const getAllUsersCount = async (req, res) => {
+  try {
+    const userCount = await User.countDocuments();
+    res.json({ message: "Success", data: { count: userCount } });
+  }
+  catch {
+    res.status(500).json({ message: 'Error fetching users count' });
+  }
+}
+
 export const getUserById = async (req, res) => {
   try {
     const user = await User.findById(req.params.id)
       .select('-password')
       .populate('documents');
-    
+
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }

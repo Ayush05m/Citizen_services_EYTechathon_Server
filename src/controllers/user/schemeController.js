@@ -1,3 +1,5 @@
+import Scheme from "../../models/Scheme.js";
+
 export const getSchemesQuery = async (req, res) => {
     try {
         const { category, search } = req.query;
@@ -14,7 +16,7 @@ export const getSchemesQuery = async (req, res) => {
             ];
         }
 
-        const schemes = await Scheme.find(query);
+        const schemes = await Scheme.find();
         res.json(schemes);
     } catch (error) {
         res.status(500).json({ message: 'Error fetching schemes' });
