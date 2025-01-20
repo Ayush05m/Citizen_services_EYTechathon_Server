@@ -6,7 +6,8 @@ import {
   updateScheme,
   deleteScheme,
   getSchemeStats,
-  getAllSchemesCount
+  getAllSchemesCount,
+  getSchemeById
 } from '../../controllers/admin/schemeController.js';
 
 const router = express.Router();
@@ -14,6 +15,7 @@ const router = express.Router();
 router.get('/', adminAuth, getAllSchemes);
 router.get('/count', adminAuth, getAllSchemesCount);
 router.post('/', adminAuth, createScheme);
+router.get('/:id', adminAuth, getSchemeById);
 router.put('/:id', adminAuth, updateScheme);
 router.delete('/:id', adminAuth, deleteScheme);
 router.get('/stats', adminAuth, getSchemeStats);

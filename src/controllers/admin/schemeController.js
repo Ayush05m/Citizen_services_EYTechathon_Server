@@ -80,3 +80,21 @@ export const getSchemeStats = async (req, res) => {
     res.status(500).json({ message: 'Error fetching statistics' });
   }
 };
+
+export const getSchemeById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const scheme = await Scheme.findById(id);
+    if (!scheme) {
+      return res.status(404).json({ message: 'Scheme not found' });
+    }
+    return res.status(200).json({
+      message: 'success', data: {
+        scheme
+      }
+    })
+  }
+  catch {
+    res.status(500).json({ message: 'Error fetching statistics' });
+  }
+}
